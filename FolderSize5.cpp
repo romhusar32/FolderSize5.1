@@ -3,12 +3,11 @@
 #pragma once
 
 #include "framework.h"
-#include "stdafxr.h"
+
 #include "FolderSize5.h"
-#include <stdio.h>
-#include <iostream>
-#include "afx.h"
 #include "windows.h"
+#include "Resource.h"
+#include "tchar.h"
 
 #define MAX_LOADSTRING 100
 
@@ -82,12 +81,30 @@
         wcex.cbClsExtra = 0;
         wcex.cbWndExtra = 0;
         wcex.hInstance = hInstance;
-        wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_FOLDERSIZE5));
+        wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CHILD));
         wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
         wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-        wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_FOLDERSIZE5);
+        wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_CHILD);
         wcex.lpszClassName = szWindowClass;
         wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+
+        WNDCLASSEXW child1;
+
+        child1.cbSize = sizeof(WNDCLASSEX);
+
+        child1.style = CS_HREDRAW | CS_VREDRAW;
+        child1.lpfnWndProc = WndProcChild1;
+        child1.cbClsExtra = 0;
+        child1.cbWndExtra = 0;
+        child1.hInstance = hInstance;
+        child1.hIcon = NULL;
+        child1.hCursor = LoadCursor(nullptr, IDC_ARROW);
+        child1.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+        child1.lpszMenuName = _T("Folder Size");
+        child1.lpszClassName = _T("Child");
+        child1.hIconSm = LoadIcon(child1.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+
+        RegisterClassExW(&child1);
 
         return RegisterClassExW(&wcex);
     }
@@ -132,19 +149,18 @@
     //
     LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
+        int wmId;
+        HDC hdc;
+        
         switch (message)
         {
         case WM_CREATE:
-        {
-            hChild1 = CreateWindowW(szWindowClassChild, _T("FolderSize"),
-                WS_CHILD | WS_VISIBLE | WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 1200, 300, hWnd,
-                NULL, hInst1, NULL);
-             SetParent(hChild1, hWnd);
-            ShowWindow(hChild1, SW_SHOWNORMAL);
-            UpdateWindow(hChild1);
+             hChild1 = CreateWindowW(_T("Child"), _T("FolderSize"),
+             WS_CHILD | WS_VISIBLE | WS_OVERLAPPEDWINDOW, 50, 50, 1200, 300, hWnd,
+             NULL, hInst1, NULL);
+            break;
         case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
+            wmId = LOWORD(wParam);
             // Parse the menu selections:
             switch (wmId)
             {
@@ -157,25 +173,20 @@
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
-        }
-        break;
+            break;
         case WM_PAINT:
-        {
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
+            hdc = BeginPaint(hWnd, &ps);
             // TODO: Add any drawing code that uses hdc here...
             EndPaint(hWnd, &ps);
-        }
-        break;
-        case WM_DESTROY:
+            break;
+         case WM_DESTROY:
             PostQuitMessage(0);
             break;
         default:
             return DefWindowProc(hWnd, message, wParam, lParam);
         }
         return 0;
-
-        }
     }
 
     // Message handler for about box.

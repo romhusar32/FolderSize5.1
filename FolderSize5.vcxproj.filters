@@ -24,10 +24,10 @@
     <ClInclude Include="FolderSize5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Proba5\WndProcChild1.h">
+    <ClInclude Include="stdafxr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafxr.h">
+    <ClInclude Include="..\Proba5\WndProcChild1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
