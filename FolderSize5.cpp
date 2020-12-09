@@ -41,6 +41,8 @@
         LoadStringW(hInstance, IDC_FOLDERSIZE5, szWindowClass, MAX_LOADSTRING);
         MyRegisterClass(hInstance);
 
+        
+
         // Perform application initialization:
         if (!InitInstance(hInstance, nCmdShow))
         {
@@ -84,7 +86,7 @@
         wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CHILD));
         wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
         wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-        wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_CHILD);
+        wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_FOLDERSIZE5);
         wcex.lpszClassName = szWindowClass;
         wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -123,8 +125,9 @@
     {
         hInst = hInstance; // Store instance handle in our global variable
 
-        HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-            CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+        HWND hWnd = CreateWindowW(szWindowClass, szTitle, 
+            WS_OVERLAPPEDWINDOW | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CAPTION | WS_TILED  
+            , CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
 
         if (!hWnd)
         {
@@ -151,16 +154,19 @@
     {
         int wmId;
         HDC hdc;
+        int wmEvent;
         
         switch (message)
         {
         case WM_CREATE:
              hChild1 = CreateWindowW(_T("Child"), _T("FolderSize"),
-             WS_CHILD | WS_VISIBLE | WS_OVERLAPPEDWINDOW, 50, 50, 1200, 300, hWnd,
-             NULL, hInst1, NULL);
+             WS_CHILD | WS_VISIBLE | WS_SYSMENU | WS_CAPTION | WS_VSCROLL | WS_HSCROLL | WS_SIZEBOX |
+             WS_MINIMIZEBOX | WS_MAXIMIZEBOX    , 
+             0, 0, 600, 400, hWnd, NULL, hInst1, NULL);
             break;
         case WM_COMMAND:
             wmId = LOWORD(wParam);
+            wmEvent = HIWORD(wParam);
             // Parse the menu selections:
             switch (wmId)
             {

@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="..\Proba5\WndProcChild1.h" />
     <ClInclude Include="FolderSize5.h" />
+    <ClInclude Include="FolderSizeDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafxr.h" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="..\Proba5\WndProcChild1.cpp" />
     <ClCompile Include="FolderSize5.cpp" />
+    <ClCompile Include="FolderSizeDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FolderSize5.rc" />

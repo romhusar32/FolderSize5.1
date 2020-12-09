@@ -30,12 +30,18 @@
     <ClInclude Include="..\Proba5\WndProcChild1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FolderSizeDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FolderSize5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Proba5\WndProcChild1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderSizeDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
